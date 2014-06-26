@@ -22,7 +22,7 @@ void Deck::addCard(const Card card, int i_number){
     }
 }
 
-//Used to say what pile drawn cards should go to.
+//Used to say what pile drawn cards should go to. Such as directing burn cards to the discard pile.
 Card Deck::drawTopCard(std::vector<Card> &v_pile){
     if(this->isEmpty()){
         if(this->v_discard.empty()){
@@ -43,7 +43,7 @@ Card Deck::drawTopCard(){
     return this->drawTopCard(this->v_drawn);
 
 }
-//draw i_number cards, skipping every i_skip_interval between cards, skipping the first i_burn_number cards
+//draw a card skipping the first i_burn_number cards which will end up in the discard pile
 Card Deck::drawTopCard(int i_burn_number){
     for(int i_count = 0; i_count < i_burn_number; i_count++){
             Card card = this->drawTopCard(this->v_discard);
@@ -58,10 +58,12 @@ void Deck::shuffleDeck(std::vector<Card> &v_cards){
     std::shuffle(v_cards.begin(), v_cards.end(), g);
 }
 
+//Shuffles main deck of cards that are drawn from
 void Deck::shuffleDeck(){
     this->shuffleDeck(this->v_cards);
 }
 
+//Shuffles the discard pile.
 void Deck::shuffleDiscard(){
     std::srand(std::time(0));
     std::mt19937 g(std::rand());
@@ -86,6 +88,8 @@ bool Deck::isEmpty(){
     return this->v_cards.empty();
 }
 
+
+//All cards are now in the draw deck v_cards excluding those contained in v_inplay which are removed on a one for one basis.
 void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
     std::vector<Card> v_left_to_exclude;
     for(const Card &card : v_inplay)
@@ -105,15 +109,18 @@ void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
     }
 }
 
+//All cards are now in the main draw pile. v_cards
 void Deck::resetDeck(const bool b_shuffled){
     for(Card &card : this->v_drawn){
             this->v_cards.push_back(card);
     }
+    this->readdDiscards();
     if(b_shuffled){
         this->shuffleDeck();
     }
 }
 
+//Adds the discard pile to the main draw pile v_cards
 void Deck::readdDiscards(){
     for(Card &card : this->v_discard)
         this->v_cards.push_back(card);
@@ -140,6 +147,8 @@ bool Deck::discardEmpty(){
     return this->v_discard.empty();
 }
 
+
+//Draw a card form the discard pile if possible otherwise the normal deck.
 Card Deck::drawDiscard(const bool &b_shuffle){
     if(b_shuffle){
         this->discardShuffle();
@@ -156,6 +165,8 @@ Card Deck::drawDiscard(const bool &b_shuffle){
     return card;
 }
 
+
+//Shuffles the discard pile.
 void Deck::discardShuffle(){
     this->shuffleDeck(this->v_discard);
 }
