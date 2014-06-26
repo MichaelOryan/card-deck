@@ -3,7 +3,7 @@ card-deck
 
 Defines two structures for a deck of cards.
 
-------------------------------------------
+
 Card
 ------------------------------------------
 Which must be constructed with a string name
@@ -19,7 +19,7 @@ Retrieve a value from a card
 
 cout << card.getValue("Points");
 
-------------------------------------------
+
 Deck
 ------------------------------------------
 construct with or without a card
