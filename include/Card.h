@@ -6,9 +6,9 @@
 class Card
 {
     public:
-        Card(const std::string &name);
+        Card(const std::string &s_name);
         virtual ~Card();
-        void setCardName(const std::string &name);
+        void setCardName(const std::string &s_name);
         std::string getCardName();
         void addValue(const std::string &s_key, const std::string &s_value);
         std::string getValue(const std::string &s_key);
@@ -16,7 +16,7 @@ class Card
 
     protected:
     private:
-        std::string name;
+        std::string s_name;
         std::map<std::string, std::string> m_properties;
 };
 

@@ -33,11 +33,9 @@ deck.addCard(card, 2); // Add two copies of card to deck
 deck.addCard(card); // Add one copy of card to deck
 
 Draw a card from the deck with or without burning card to the discard pile.
-If there are no cards to draw then it will start with a new deck of all the previously drawn cards.
-Possible features for the future. Having a discard pile which can be added to and will become the new deck if the deck runs out of cards.
+If there are no cards to draw then it will start by shuffling the discard pile and making those cards available to draw.
 
 Card card = deck.drawTopCard(3); //Puts 3 cards into the discard pile and returns the 4th
-
 card = deck.drawTopCard(); // Draws one card
 
 Check to see if the deck is empty
@@ -53,3 +51,7 @@ Forgot the most fun part. You can create a default deck of 52 cards.
 
 Deck.deck;
 deck.createDefaultDeck(false); //52 cards, ace to king, 4 suits, unshuffled.
+
+Added a bunch of new features for dealing with discard piles.
+
+Cards that would normally go to a discard pile in a real life game can now be added to the deck discard pile. Card there will be automatically added to the draw pile when it becomes empty.

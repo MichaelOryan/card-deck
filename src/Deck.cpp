@@ -7,82 +7,155 @@ Deck::Deck()
 
 Deck::~Deck()
 {
-    this->cards.clear();
-    this->drawn.clear();
+    this->v_cards.clear();
+    this->v_drawn.clear();
 }
 
+Deck::Deck(const std::vector<Card> &v_cards){
+    this->v_cards = v_cards;
+}
 
 // add i_number clones of card to deck
 void Deck::addCard(const Card card, int i_number){
     for(int i_counter = 0; i_counter < i_number; i_counter++){
-        this->cards.push_back(Card(card));
+        this->v_cards.push_back(Card(card));
     }
 }
 
-Card Deck::drawTopCard(){
-    if(this->isEmpty())
-        this->resetDeck();
-    Card card = this->cards.back();
-    this->cards.pop_back();
-    this->drawn.push_back(card);
+//Used to say what pile drawn cards should go to.
+Card Deck::drawTopCard(std::vector<Card> &v_pile){
+    if(this->isEmpty()){
+        if(this->v_discard.empty()){
+            this->resetDeck();
+        }
+        else{
+            this->readdDiscards();
+        }
+    }
+    Card card = this->v_cards.back();
+    this->v_cards.pop_back();
+    v_pile.push_back(card);
     return card;
+
+}
+
+Card Deck::drawTopCard(){
+    return this->drawTopCard(this->v_drawn);
 
 }
 //draw i_number cards, skipping every i_skip_interval between cards, skipping the first i_burn_number cards
 Card Deck::drawTopCard(int i_burn_number){
     for(int i_count = 0; i_count < i_burn_number; i_count++){
-            Card card = this->drawTopCard();
+            Card card = this->drawTopCard(this->v_discard);
     }
     Card card = this->drawTopCard();
     return card;
 }
 
-void Deck::shuffleDeck(){
+void Deck::shuffleDeck(std::vector<Card> &v_cards){
     std::srand(std::time(0));
     std::mt19937 g(std::rand());
-    std::shuffle(this->cards.begin(), this->cards.end(), g);
+    std::shuffle(v_cards.begin(), v_cards.end(), g);
+}
+
+void Deck::shuffleDeck(){
+    this->shuffleDeck(this->v_cards);
+}
+
+void Deck::shuffleDiscard(){
+    std::srand(std::time(0));
+    std::mt19937 g(std::rand());
+    std::shuffle(this->v_cards.begin(), this->v_cards.end(), g);
 }
 
  //Empties the deck and creates a default 52 card deck of ace, 2-10, jack, queen and king in suits of Clubs, Diamonds, Hearts and Spades
-void Deck::createDefaultDeck(bool shuffled){
-    std::vector<std::string> numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
-    std::vector<std::string> suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
-    for(std::string &number : numbers)
-        for(std::string &suit : suits){
-            std::string cardname = number + " of " + suit;
-            this->addCard(Card(cardname));
+void Deck::createDefaultDeck(bool b_shuffled){
+    std::vector<std::string> v_numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
+    std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
+    for(std::string &s_suit : v_suits){
+        for(std::string &s_number : v_numbers){
+            std::string s_cardname = s_number + " of " + s_suit;
+            this->addCard(Card(s_cardname));
         }
-    if(shuffled)
+    }
+    if(b_shuffled)
         this->shuffleDeck();
 }
 
 bool Deck::isEmpty(){
-    return this->cards.empty();
+    return this->v_cards.empty();
 }
 
-void Deck::resetDeck(const std::vector<Card> excluded, const bool shuffled){
-    std::vector<Card> left_to_exclude;
-    for(const Card &card : excluded)
-        left_to_exclude.push_back(card);
-    for(Card &card : this->drawn){
-        auto it_excluded = std::find(std::begin(left_to_exclude), std::end(left_to_exclude), card);
-        if(it_excluded == std::end(left_to_exclude)){
-            this->cards.push_back(card);
+void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
+    std::vector<Card> v_left_to_exclude;
+    for(const Card &card : v_inplay)
+        v_left_to_exclude.push_back(card);
+    for(Card &card : this->v_drawn){
+        auto it_excluded = std::find(std::begin(v_left_to_exclude), std::end(v_left_to_exclude), card);
+        if(it_excluded == std::end(v_left_to_exclude)){
+            this->v_cards.push_back(card);
         }
         else{
-            left_to_exclude.erase(it_excluded);
+            v_left_to_exclude.erase(it_excluded);
         }
     }
-    if(shuffled){
+    this->readdDiscards();
+    if(b_shuffled){
         this->shuffleDeck();
     }
 }
 
-void Deck::resetDeck(const bool shuffled){
-    for(Card &card : this->drawn){
-            this->cards.push_back(card);
+void Deck::resetDeck(const bool b_shuffled){
+    for(Card &card : this->v_drawn){
+            this->v_cards.push_back(card);
     }
-    if(shuffled){
+    if(b_shuffled){
         this->shuffleDeck();
     }
+}
+
+void Deck::readdDiscards(){
+    for(Card &card : this->v_discard)
+        this->v_cards.push_back(card);
+    this->v_discard.clear();
+    this->shuffleDeck();
+}
+
+int Deck::cardsRemaining(){
+    return this->v_cards.size();
+}
+
+// Add a card to the discard pile.
+void Deck::addToDiscard(Card &card){
+    this->v_discard.push_back(card);
+}
+
+// Add multiple cards to the discard pile
+void Deck::addToDiscard(std::vector<Card> &v_cards){
+    for(const Card &card : v_cards)
+        this->v_discard.push_back(card);
+}
+
+bool Deck::discardEmpty(){
+    return this->v_discard.empty();
+}
+
+Card Deck::drawDiscard(const bool &b_shuffle){
+    if(b_shuffle){
+        this->discardShuffle();
+    }
+    if(this->discardEmpty()){
+        if(this->isEmpty()){
+            this->resetDeck();
+        }
+        return this->drawTopCard();
+    }
+    Card card = this->v_discard.back();
+    this->v_discard.pop_back();
+    v_drawn.push_back(card);
+    return card;
+}
+
+void Deck::discardShuffle(){
+    this->shuffleDeck(this->v_discard);
 }
