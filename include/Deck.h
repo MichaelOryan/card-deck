@@ -28,9 +28,9 @@ class Deck
         void addToDiscard(std::vector<Card> &v_cards); // Add multiple cards to the discard pile
         int cardsRemaining();
         void shuffleDiscard();
-        void discardShuffle();
         bool discardEmpty();
         Card drawDiscard(const bool &b_shuffle); // Draw a card from the discard pile
+        void createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix);
     protected:
     private:
         void shuffleDeck(std::vector<Card> &v_cards); //shuffles target deck

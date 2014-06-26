@@ -63,25 +63,22 @@ void Deck::shuffleDeck(){
     this->shuffleDeck(this->v_cards);
 }
 
-//Shuffles the discard pile.
-void Deck::shuffleDiscard(){
-    std::srand(std::time(0));
-    std::mt19937 g(std::rand());
-    std::shuffle(this->v_cards.begin(), this->v_cards.end(), g);
-}
 
  //Empties the deck and creates a default 52 card deck of ace, 2-10, jack, queen and king in suits of Clubs, Diamonds, Hearts and Spades
 void Deck::createDefaultDeck(bool b_shuffled){
     std::vector<std::string> v_numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
     std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
-    for(std::string &s_suit : v_suits){
-        for(std::string &s_number : v_numbers){
-            std::string s_cardname = s_number + " of " + s_suit;
-            this->addCard(Card(s_cardname));
-        }
-    }
+    this->createDeck(v_numbers, std::string(" of "), v_suits);
     if(b_shuffled)
         this->shuffleDeck();
+}
+
+void Deck::createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix){
+    for(std::string s_postfix : v_postfix){
+        for(std::string &s_prefix : v_prefix){
+            this->addCard(Card(s_prefix + s_join + s_postfix));
+        }
+    }
 }
 
 bool Deck::isEmpty(){
@@ -151,7 +148,7 @@ bool Deck::discardEmpty(){
 //Draw a card form the discard pile if possible otherwise the normal deck.
 Card Deck::drawDiscard(const bool &b_shuffle){
     if(b_shuffle){
-        this->discardShuffle();
+        this->shuffleDiscard();
     }
     if(this->discardEmpty()){
         if(this->isEmpty()){
@@ -167,6 +164,6 @@ Card Deck::drawDiscard(const bool &b_shuffle){
 
 
 //Shuffles the discard pile.
-void Deck::discardShuffle(){
+void Deck::shuffleDiscard(){
     this->shuffleDeck(this->v_discard);
 }
