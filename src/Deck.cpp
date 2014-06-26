@@ -65,9 +65,7 @@ void Deck::resetDeck(const std::vector<Card> excluded, const bool shuffled){
     for(const Card &card : excluded)
         left_to_exclude.push_back(card);
     for(Card &card : this->drawn){
-        //std::vector<std::string>::iterator it_excluded;
         auto it_excluded = std::find(std::begin(left_to_exclude), std::end(left_to_exclude), card);
-        //it_excluded = left_to_exclude.find(card);
         if(it_excluded == std::end(left_to_exclude)){
             this->cards.push_back(card);
         }
