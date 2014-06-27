@@ -1,9 +1,19 @@
+/*
+Example main.cpp file that I use for testing the library out.
+I guess I won't learn about proper testing for a while so this is it for the moment. :\
+*/
+
+
 #include <iostream>
 #include <Deck.h>
 #include <Card.h>
 #include <string>
 
-using namespace std;
+//using namespace std; //Bye by std namespace. Uncomment it if you really have to.
+using std::cout;
+using std::endl;
+using std::cin;
+
 
 int main()
 {
