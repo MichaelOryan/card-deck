@@ -65,6 +65,7 @@ Upcoming - Next Major Update
 Next task it to go over all the code and make sure it makes sense.
 Cut out functions that don't need to be there or accessed publically.
 Make sure everything maintains the same style and consistency.
+Maybe if it makes sense to define std::vector<Card> as a typedef of Pile. typedef std::vector<Card> Pile;
 
 Long term
 ------------------------------------------
