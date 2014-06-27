@@ -31,6 +31,9 @@ class Deck
         bool discardEmpty();
         Card drawDiscard(const bool &b_shuffle); // Draw a card from the discard pile
         void createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix);
+        int getUniqueCardType();
+        int getCardType(Card card);
+
     protected:
     private:
         void shuffleDeck(std::vector<Card> &v_cards); //shuffles target deck
@@ -41,6 +44,7 @@ class Deck
         void removeCard(Card card, std::vector<Card> &v_pile);
         enum Decks{D_MAIN, D_DRAWN, D_DISCARD};
         void removeCard(Card card, Decks d_deck);
+        unsigned int last_unique_type; // Last unique type of card returned
 
 };
 
