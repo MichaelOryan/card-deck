@@ -81,4 +81,7 @@ Revist after the upcoming session at uni is over and cry at how bad my code is a
 Features Ideas for Future Updates
 ------------------------------------------
 Possible peek function for cards on piles.
+
 Draw x return less than x to the deck, shuffled(whole, returned cards) or unshuffled.
+
+Better way of storing values to each card. Esp for numeric values.
