@@ -78,7 +78,7 @@ Long term
 Revist after the upcoming session at uni is over and cry at how bad my code is and rewrite it all.
 
 
-Features Ideas for Future Updates
+Features/Ideas for Future Updates
 ------------------------------------------
 Possible peek function for cards on piles.
 
