@@ -100,7 +100,7 @@ void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
             v_left_to_exclude.erase(it_excluded);
         }
     }
-    this->readdDiscards();// Maybe don't shuffle the deck twice by making this not shuffle
+    this->readdDiscards();
     if(b_shuffled){
         this->shuffleDeck();
     }
@@ -118,7 +118,7 @@ void Deck::resetDeck(const bool b_shuffled){
 }
 
 //Adds the discard pile to the main draw pile v_cards
-void Deck::readdDiscards(){// Put a bool here
+void Deck::readdDiscards(){
     for(Card &card : this->v_discard)
         this->v_cards.push_back(card);
     this->v_discard.clear();
@@ -129,20 +129,15 @@ int Deck::cardsRemaining(){
     return this->v_cards.size();
 }
 
-
-
 // Add a card to the discard pile.
-void Deck::addToDiscard(const Card &card){
+void Deck::addToDiscard(Card &card){
     this->v_discard.push_back(card);
-    removeCard(card, D_DRAWN);
 }
 
 // Add multiple cards to the discard pile
 void Deck::addToDiscard(std::vector<Card> &v_cards){
-    for(const Card &card : v_cards){
-        this->addToDiscard(card);
-    }
-
+    for(const Card &card : v_cards)
+        this->v_discard.push_back(card);
 }
 
 bool Deck::discardEmpty(){
@@ -171,22 +166,4 @@ Card Deck::drawDiscard(const bool &b_shuffle){
 //Shuffles the discard pile.
 void Deck::shuffleDiscard(){
     this->shuffleDeck(this->v_discard);
-}
-
-//Removes the first card found in pile equal to card
-void Deck::removeCard(Card card, std::vector<Card> &v_pile){
-    auto it_card = std::find(std::begin(v_pile), std::end(v_pile), card);
-     v_pile.erase(it_card);
-}
-
-void Deck::removeCard(Card card, Decks d_deck){
-    switch(d_deck){
-        case D_MAIN:removeCard(card, v_cards);
-                break;
-        case D_DRAWN:removeCard(card, v_drawn);
-                break;
-        case D_DISCARD:removeCard(card, v_discard);
-                break;
-        default:;
-    };
 }

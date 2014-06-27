@@ -17,9 +17,7 @@ int main()
         hand.push_back(deck.drawTopCard());
 
 
-    deck.addToDiscard(hand);
-    deck.resetDeck();
-    cout << deck.cardsRemaining() << endl;
+    //deck.addToDiscard(hand);
     for(int i = 0; i < 52; i++){
          Card card = deck.drawTopCard();
          cards.push_back(card);
