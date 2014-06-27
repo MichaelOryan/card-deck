@@ -27,10 +27,11 @@ int calcTotalScore(std::vector<Card> hand, int max_score, Deck deck);
 
 int main()
 {
-    Deck deck;
+
     deck.createDefaultDeck();
-    std::vector<Card> myHand;
-    std::vector<Card> computerHand;
+    //std::vector<Card> myHand;
+    Deck::Hand myHand;
+    Deck::Hand computerHand;
 
     myHand.push_back(deck.drawTopCard());
     myHand.push_back(deck.drawTopCard());
@@ -49,9 +50,9 @@ int main()
 
     /*
     Deal with bust
-    
+
     CPU or second player draws cards
-    
+
     See who wins and declare winner
     */
 
