@@ -1,6 +1,8 @@
 /*
 Example main.cpp file that I use for testing the library out.
 I guess I won't learn about proper testing for a while so this is it for the moment. :\
+
+A better example now may be blackjack.cpp
 */
 
 
