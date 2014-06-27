@@ -1,4 +1,11 @@
-all:	main
+#Untested for a while and for blackjack
+#I just assume it works will test later
+#Log an issue or make a push request if it doesn't work and/or you have a solution
+
+all:	main blackjack
+
+blackjack:	Card.o Deck.o blackjack.o
+	g++ -o blackjack -I include main.o Deck.o Card.o -std=c++11
 
 main:	Card.o Deck.o main.o 
 	g++ -o testdeck -I include main.o Deck.o Card.o -std=c++11
