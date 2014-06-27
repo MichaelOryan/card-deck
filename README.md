@@ -55,3 +55,24 @@ deck.createDefaultDeck(false); //52 cards, ace to king, 4 suits, unshuffled.
 Added a bunch of new features for dealing with discard piles.
 
 Cards that would normally go to a discard pile in a real life game can now be added to the deck discard pile. Card there will be automatically added to the draw pile when it becomes empty.
+
+For clarification std::vector<Card> is now known as a pile. If it makes sense to. I'll have to work out a way of making that happen with code.
+
+
+Upcoming - Next Major Update
+------------------------------------------
+
+Next task it to go over all the code and make sure it makes sense.
+Cut out functions that don't need to be there or accessed publically.
+Make sure everything maintains the same style and consistency.
+
+Long term
+------------------------------------------
+
+Revist after the upcoming session at uni is over and cry at how bad my code is and rewrite it all.
+
+
+Features Ideas for Future Updates
+------------------------------------------
+Possible peek function for cards on piles.
+Draw x return less than x to the deck, shuffled(whole, returned cards) or unshuffled.

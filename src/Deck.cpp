@@ -52,25 +52,26 @@ Card Deck::drawTopCard(int i_burn_number){
     return card;
 }
 
-void Deck::shuffleDeck(std::vector<Card> &v_cards){
+void Deck::shufflePile(std::vector<Card> &v_cards){
     std::srand(std::time(0));
     std::mt19937 g(std::rand());
     std::shuffle(v_cards.begin(), v_cards.end(), g);
 }
 
 //Shuffles main deck of cards that are drawn from
-void Deck::shuffleDeck(){
-    this->shuffleDeck(this->v_cards);
+void Deck::shufflePile(){
+    this->shufflePile(this->v_cards);
 }
 
 
  //Empties the deck and creates a default 52 card deck of ace, 2-10, jack, queen and king in suits of Clubs, Diamonds, Hearts and Spades
-void Deck::createDefaultDeck(bool b_shuffled){
-    std::vector<std::string> v_numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
-    std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
-    this->createDeck(v_numbers, std::string(" of "), v_suits);
+void Deck::createDefaultDeck(bool b_shuffled, bool b_clearPiles){
+    if(b_clearPiles){
+        this->clearAllPiles();
+    }
+    this->createDeck(this->v_numbers, std::string(" of "), this->v_suits);
     if(b_shuffled)
-        this->shuffleDeck();
+        this->shufflePile();
 }
 
 void Deck::createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix){
@@ -79,6 +80,31 @@ void Deck::createDeck(std::vector<std::string> &v_prefix, std::string s_join, st
             this->addCard(Card(s_prefix + s_join + s_postfix));
         }
     }
+}
+
+void Deck::clearPile(std::vector<Card> &v_pile){
+    v_pile.clear();
+}
+
+void Deck::clearPile(Decks d_deck)
+{
+    switch(d_deck){
+        case D_MAIN:this->clearPile(v_cards);
+                break;
+        case D_DRAWN:this->clearPile(v_drawn);
+                break;
+        case D_DISCARD:this->clearPile(v_discard);
+                break;
+        default:;
+    };
+
+}
+
+void Deck::clearAllPiles()
+{
+    std::vector<Decks> v_decks = {D_MAIN, D_DRAWN, D_DISCARD};
+    for(Decks d_deck : v_decks)
+        clearPile(d_deck);
 }
 
 bool Deck::isEmpty(){
@@ -102,7 +128,7 @@ void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
     }
     this->readdDiscards();// Maybe don't shuffle the deck twice by making this not shuffle
     if(b_shuffled){
-        this->shuffleDeck();
+        this->shufflePile();
     }
 }
 
@@ -113,7 +139,7 @@ void Deck::resetDeck(const bool b_shuffled){
     }
     this->readdDiscards();
     if(b_shuffled){
-        this->shuffleDeck();
+        this->shufflePile();
     }
 }
 
@@ -122,7 +148,7 @@ void Deck::readdDiscards(){// Put a bool here
     for(Card &card : this->v_discard)
         this->v_cards.push_back(card);
     this->v_discard.clear();
-    this->shuffleDeck();
+    this->shufflePile();
 }
 
 int Deck::cardsRemaining(){
@@ -170,7 +196,7 @@ Card Deck::drawDiscard(const bool &b_shuffle){
 
 //Shuffles the discard pile.
 void Deck::shuffleDiscard(){
-    this->shuffleDeck(this->v_discard);
+    this->shufflePile(this->v_discard);
 }
 
 //Removes the first card found in pile equal to card
