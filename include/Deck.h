@@ -24,7 +24,7 @@ class Deck
         void resetDeck(const bool b_shuffled = true); //Resets deck back to it's original state. Order not guaranteed.
         void resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled = true); //Takes drawn cards and places them in the deck. Removes clashes with cards in excluded. Order not guaranteed.
         void readdDiscards();
-        void addToDiscard(Card &card); // Add a card to the discard pile.
+        void addToDiscard(const Card &card); // Add a card to the discard pile.
         void addToDiscard(std::vector<Card> &v_cards); // Add multiple cards to the discard pile
         int cardsRemaining();
         void shuffleDiscard();
@@ -38,6 +38,10 @@ class Deck
         std::vector<Card> v_cards; //All cards that make up the current undrawn or undiscarded deck
         std::vector<Card> v_drawn; //Keeps a track of all cards drawn but not discarded
         std::vector<Card> v_discard; //Cards that have been discarded
+        void removeCard(Card card, std::vector<Card> &v_pile);
+        enum Decks{D_MAIN, D_DRAWN, D_DISCARD};
+        void removeCard(Card card, Decks d_deck);
+
 };
 
 #endif // DECK_H
