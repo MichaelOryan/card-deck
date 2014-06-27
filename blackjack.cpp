@@ -1,3 +1,13 @@
+/*
+A test blackjack program that uses the Deck and Card classes.
+
+Unfinished at this stage but there's enough there to finish it.
+
+It isn't by any means optimal in execution speed, effiency or memory usage.
+
+*/
+
+
 #include <iostream>
 #include <Deck.h>
 #include <Card.h>
@@ -36,6 +46,14 @@ int main()
     }
 
     cout << "Your score is: " << calcTotalScore(myHand, 21, deck);
+
+    /*
+    Deal with bust
+    
+    CPU or second player draws cards
+    
+    See who wins and declare winner
+    */
 
     return 0;
 }
