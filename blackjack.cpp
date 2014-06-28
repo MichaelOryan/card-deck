@@ -28,6 +28,8 @@ int calcTotalScore(std::vector<Card> hand, int max_score, Deck deck);
 int main()
 {
 
+    Deck deck;
+
     deck.createDefaultDeck();
     //std::vector<Card> myHand;
     Deck::Hand myHand;
