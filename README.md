@@ -6,6 +6,9 @@ Defines two structures for a deck of cards.
 
 Card
 ------------------------------------------
+
+Note: I am not happy with the Card class at all. My original idea was to create a catch all card class that could do anything required. However I'm now of the mind that the card class should just implement or state what is required to interface with the Deck class. That way someone can come along and extend it with what ever features they require for their particular program and it should work seemlessly with the Deck class.
+
 Which must be constructed with a string name
 Card card("Card Name");
 
@@ -22,6 +25,7 @@ cout << card.getValue("Points");
 
 Deck
 ------------------------------------------
+
 construct with or without a card
 
 Deck deck(card);
@@ -62,15 +66,16 @@ For clarification std::vector<Card> is now known as a pile. If it makes sense to
 Upcoming - Next Major Update
 ------------------------------------------
 
-Next task it to go over all the code and make sure it makes sense.
+Next task it to go over all the code and make sure it makes sense. *Header files have had a pass over them and re-formatted for clarity*
 
 Cut out functions that don't need to be there or accessed publically.
 
-Make sure everything maintains the same style and consistency.
+Make sure everything maintains the same style, consistency and easy to read.
 
-Maybe if it makes sense to define std::vector<Card> as a typedef of Pile. 
 
-typedef std::vector<Card> Pile;
+Maybe if it makes sense to define std::vector<Card> as a typedef of Pile.  *Done*
+
+typedef std::vector<Card> Pile; *Done use Deck::Pile or Deck::Hand*
 
 Long term
 ------------------------------------------
