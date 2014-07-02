@@ -1,5 +1,9 @@
 #include "Deck.h"
 
+#include <algorithm>
+#include <random>
+#include <ctime>
+
 Deck::Deck()
 {
     //ctor
@@ -29,7 +33,7 @@ Card Deck::drawTopCard(std::vector<Card> &v_pile){
             this->resetDeck();
         }
         else{
-            this->readdDiscards();
+            this->reAddDiscards();
         }
     }
     Card card = this->v_cards.back();
@@ -70,8 +74,9 @@ void Deck::createDefaultDeck(bool b_shuffled, bool b_clearPiles){
         this->clearAllPiles();
     }
     this->createDeck(this->v_numbers, std::string(" of "), this->v_suits);
-    if(b_shuffled)
+    if(b_shuffled){
         this->shufflePile();
+    }
 }
 
 void Deck::createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix){
@@ -103,8 +108,9 @@ void Deck::clearPile(Decks d_deck)
 void Deck::clearAllPiles()
 {
     std::vector<Decks> v_decks = {D_MAIN, D_DRAWN, D_DISCARD};
-    for(Decks d_deck : v_decks)
+    for(Decks d_deck : v_decks){
         clearPile(d_deck);
+    }
 }
 
 bool Deck::isEmpty(){
@@ -115,8 +121,9 @@ bool Deck::isEmpty(){
 //All cards are now in the draw deck v_cards excluding those contained in v_inplay which are removed on a one for one basis.
 void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
     std::vector<Card> v_left_to_exclude;
-    for(const Card &card : v_inplay)
+    for(const Card &card : v_inplay){
         v_left_to_exclude.push_back(card);
+    }
     for(Card &card : this->v_drawn){
         auto it_excluded = std::find(std::begin(v_left_to_exclude), std::end(v_left_to_exclude), card);
         if(it_excluded == std::end(v_left_to_exclude)){
@@ -126,7 +133,7 @@ void Deck::resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled){
             v_left_to_exclude.erase(it_excluded);
         }
     }
-    this->readdDiscards();// Maybe don't shuffle the deck twice by making this not shuffle
+    this->reAddDiscards();// Maybe don't shuffle the deck twice by making this not shuffle
     if(b_shuffled){
         this->shufflePile();
     }
@@ -137,16 +144,17 @@ void Deck::resetDeck(const bool b_shuffled){
     for(Card &card : this->v_drawn){
             this->v_cards.push_back(card);
     }
-    this->readdDiscards();
+    this->reAddDiscards();
     if(b_shuffled){
         this->shufflePile();
     }
 }
 
 //Adds the discard pile to the main draw pile v_cards
-void Deck::readdDiscards(){// Put a bool here
-    for(Card &card : this->v_discard)
+void Deck::reAddDiscards(){// Put a bool here
+    for(Card &card : this->v_discard){
         this->v_cards.push_back(card);
+    }
     this->v_discard.clear();
     this->shufflePile();
 }

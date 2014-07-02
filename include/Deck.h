@@ -3,9 +3,6 @@
 
 #include <vector>
 #include <Card.h>
-#include <algorithm>
-#include <random>
-#include <ctime>
 #include <string>
 
 class Deck
@@ -42,7 +39,7 @@ class Deck
         void clearAllPiles();
         void resetDeck(const bool b_shuffled = true); //Resets deck back to it's original state. Order not guaranteed.
         void resetDeck(const std::vector<Card> &v_inplay, const bool &b_shuffled = true); //Takes drawn cards and places them in the deck. Removes clashes with cards in excluded. Order not guaranteed.
-        void readdDiscards();
+        void reAddDiscards(); // Adds discard pile to draw pile
 
         /* Properties/States */
         int cardsRemaining();
