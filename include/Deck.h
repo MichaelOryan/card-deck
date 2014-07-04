@@ -22,7 +22,7 @@ class Deck
         void addToDiscard(std::vector<Card> &v_cards); // Add multiple cards to the discard pile
 
         /* Deck creation */
-        void createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix);
+        void createDeck(const std::vector<std::string> &v_prefix, const std::string s_join, const std::vector<std::string> &v_postfix);
         void createDefaultDeck(bool b_shuffled = true, bool b_clearPiles = true); // Default is to clear all piles
 
         /* Draw Cards */
@@ -48,8 +48,8 @@ class Deck
 
         /* Public definitions */
         //Definition of a standard deck which is used when creating a default deck. Maybe look at a better way of doing this.
-        std::vector<std::string> v_numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
-        std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
+        const std::vector<std::string> v_numbers = {std::string("Ace"), std::string("Two"), std::string("Three"), std::string("Four"), std::string("Five"), std::string("Six"), std::string("Seven"), std::string("Eight"), std::string("Nine"), std::string("Ten"), std::string("Jack"), std::string("Queen"), std::string("King")};
+        const std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
 
     protected:
     private:

@@ -5,7 +5,10 @@
 all:	main blackjack
 
 blackjack:	Card.o Deck.o blackjack.o
-	g++ -o blackjack -I include main.o Deck.o Card.o -std=c++11
+	g++ -o blackjack -I include blackjack.o Deck.o Card.o -std=c++11
+
+blackjack.o:	blackjack.cpp
+	g++ -o blackjack.o -I include -c blackjack.cpp -std=c++11
 
 main:	Card.o Deck.o main.o 
 	g++ -o testdeck -I include main.o Deck.o Card.o -std=c++11

@@ -79,9 +79,9 @@ void Deck::createDefaultDeck(bool b_shuffled, bool b_clearPiles){
     }
 }
 
-void Deck::createDeck(std::vector<std::string> &v_prefix, std::string s_join, std::vector<std::string> &v_postfix){
+void Deck::createDeck(const std::vector<std::string> &v_prefix, const std::string s_join, const std::vector<std::string> &v_postfix){
     for(std::string s_postfix : v_postfix){
-        for(std::string &s_prefix : v_prefix){
+        for(std::string s_prefix : v_prefix){
             this->addCard(Card(s_prefix + s_join + s_postfix));
         }
     }

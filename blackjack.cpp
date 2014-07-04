@@ -48,7 +48,7 @@ int main()
         cout << "You drew a " << card.getCardName() << endl;
     }
 
-    cout << "Your score is: " << calcTotalScore(myHand, 21, deck);
+    cout << "Your score is: " << calcTotalScore(myHand, 21, deck) << endl;
 
     /*
     Deal with bust
