@@ -13,7 +13,7 @@ class Deck
         typedef Pile Hand;
         /* Constructors/Destructors*/
         Deck();
-        Deck(const std::vector<Card> &v_cards);
+        Deck(const std::vector<Card> &v_cards) : v_cards(v_cards){}
         virtual ~Deck();
 
         /* Add Cards */
@@ -52,6 +52,7 @@ class Deck
         const std::vector<std::string> v_suits = {std::string("Clubs"), std::string("Diamonds") ,std::string("Hearts"), std::string("Spades")};
 
     protected:
+
     private:
         /* Private Definitions */
         enum Decks{D_MAIN, D_DRAWN, D_DISCARD};
@@ -72,6 +73,7 @@ class Deck
         /* Resetting/Clearing */
         void clearPile(Decks d_deck);
         void clearPile(std::vector<Card> &v_pile);
+
 
 };
 

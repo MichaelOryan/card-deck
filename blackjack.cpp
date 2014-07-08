@@ -31,7 +31,7 @@ int main()
     Deck deck;
 
     deck.createDefaultDeck();
-    //std::vector<Card> myHand;
+
     Deck::Hand myHand;
     Deck::Hand computerHand;
 

@@ -14,11 +14,11 @@ Deck::~Deck()
     this->v_cards.clear();
     this->v_drawn.clear();
 }
-
+/*
 Deck::Deck(const std::vector<Card> &v_cards){
     this->v_cards = v_cards;
 }
-
+*/
 // add i_number clones of card to deck
 void Deck::addCard(const Card card, int i_number){
     for(int i_counter = 0; i_counter < i_number; i_counter++){
